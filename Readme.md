@@ -7,9 +7,9 @@ This is a PHP port of the JS library [component/path-to-regexp](https://github.c
 ## Usage
 
 ```php
-require_once "pathToRegexp.php";
+require_once "PathToRegexp.php";
 
-pathToRegexp($path, $keys, $options);
+PathToRegexp::convert($path, $keys, $options);
 ```
 
 - **path** A string in the express format, an array of strings, or a regular expression.
@@ -21,7 +21,7 @@ pathToRegexp($path, $keys, $options);
 
 ```php
 $keys = [];
-$re = pathToRegexp('/foo/:bar', $keys);
+$re = PathToRegexp::convert('/foo/:bar', $keys);
 // $re = '/^\/foo\/([^\/]+?)\/?$/i'
 // $keys = array(array("name" => 'bar', "delimiter" => '/', "repeat" => false, "optional" => false))
 ```
@@ -35,10 +35,10 @@ The path has the ability to define parameters and automatically populate the key
 Named parameters are defined by prefixing a colon to the parameter name (`:foo`). By default, this parameter will match up to the next path segment.
 
 ```php
-$re = pathToRegexp('/:foo/:bar', $keys);
+$re = PathToRegexp::convert('/:foo/:bar', $keys);
 // $keys = array(array("name" => 'foo', ... ), array("name" => 'bar', ... ))
 
-preg_match_all($re, '/test/route', $matches);
+PathToRegexp::match($re, '/test/route', $matches);
 // $matches = array('/test/route', 'test', 'route')
 ```
 
@@ -49,13 +49,13 @@ preg_match_all($re, '/test/route', $matches);
 Parameters can be suffixed with a question mark (`?`) to make the entire parameter optional. This will also make any prefixed path delimiter optional (`/` or `.`).
 
 ```php
-$re = pathToRegexp('/:foo/:bar?', $keys);
+$re = PathToRegexp::convert('/:foo/:bar?', $keys);
 // $keys = array(array("name" => 'foo', ... ), array("name" => 'bar', "delimiter" => '/', "optional" => true, "repeat" => false ))
 
-preg_match_all($re, '/test', $matches);
+PathToRegexp::match($re, '/test', $matches);
 // $matches = array('/test', 'test', null)
 
-preg_match_all($re, '/test/route', $matches);
+PathToRegexp::match($re, '/test/route', $matches);
 // $matches = array('/test', 'test', 'route')
 ```
 
@@ -64,13 +64,13 @@ preg_match_all($re, '/test/route', $matches);
 Parameters can be suffixed with an asterisk (`*`) to denote a zero or more parameter match. The prefixed path delimiter is also taken into account for the match.
 
 ```php
-$re = pathToRegexp('/:foo*', $keys);
+$re = PathToRegexp::convert('/:foo*', $keys);
 // $keys = array(array("name" => 'foo', "delimiter" => '/', "optional" => true, "repeat" => true))
 
-preg_match_all($re, '/', $matches);
+PathToRegexp::match($re, '/', $matches);
 // $matches = array('/', null)
 
-preg_match_all($re, '/bar/baz', $matches);
+PathToRegexp::match($re, '/bar/baz', $matches);
 // $matches = array('/bar/baz', 'bar/baz')
 ```
 
@@ -79,13 +79,13 @@ preg_match_all($re, '/bar/baz', $matches);
 Parameters can be suffixed with a plus sign (`+`) to denote a one or more parameters match. The prefixed path delimiter is included in the match.
 
 ```php
-$re = pathToRegexp('/:foo+', $keys);
+$re = PathToRegexp::convert('/:foo+', $keys);
 // $keys = array(array("name" => 'foo', "delimiter" => '/', "optional" => false, "repeat" => true))
 
-preg_match_all($re, '/', $matches);
+PathToRegexp::match($re, '/', $matches);
 // $matches = null
 
-preg_match_all($re, '/bar/baz', $matches);
+PathToRegexp::match($re, '/bar/baz', $matches);
 // $matches = array('/bar/baz', 'bar/baz')
 ```
 
@@ -94,13 +94,13 @@ preg_match_all($re, '/bar/baz', $matches);
 All parameters can be provided a custom matching regexp and override the default. Please note: Backslashes need to be escaped in strings.
 
 ```php
-$re = pathToRegexp('/:foo(\\d+)', $keys);
+$re = PathToRegexp::convert('/:foo(\\d+)', $keys);
 // $keys = array(array("name" => 'foo', ... ))
 
-preg_match_all($re, '/123', $matches);
+PathToRegexp::match($re, '/123', $matches);
 // $matches = array('/123', '123')
 
-preg_match_all($re, '/abc', $matches);
+PathToRegexp::match($re, '/abc', $matches);
 // $matches = null
 ```
 
@@ -109,10 +109,10 @@ preg_match_all($re, '/abc', $matches);
 It is possible to write an unnamed parameter that is only a matching group. It works the same as a named parameter, except it will be numerically indexed.
 
 ```php
-$re = pathToRegexp('/:foo/(.*)', $keys);
+$re = PathToRegexp::convert('/:foo/(.*)', $keys);
 // $keys = array(array("name" => 'foo', ... ), array("name": '0', ... ))
 
-preg_match_all($re, '/test/route', $matches);
+PathToRegexp::match($re, '/test/route', $matches);
 // $matches = array('/test/route', 'test', 'route')
 ```
 
