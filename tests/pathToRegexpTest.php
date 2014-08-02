@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . "/../src/pathToRegexp.php";
+require_once dirname(__FILE__) . "/../src/PathToRegexp.php";
 
 class PathToRegexpTest extends PHPUnit_Framework_TestCase {
 	/**
