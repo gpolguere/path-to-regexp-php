@@ -341,38 +341,22 @@ class PathToRegexpTest extends PHPUnit_Framework_TestCase {
 	}
 
 	private function genericTest($tests, $name = "") {
-		error_log("----- " . $name . " -----");
+		// error_log("----- " . $name . " -----");
 		foreach($tests as $id => $test) {
-			error_log("    ----- " . $id . " -----");
+			// error_log("    ----- " . $id . " -----");
 			$params = array();
 			if(count($test) > 4) {
 				$options = $test[4];
 			} else {
 				$options = array();
 			}
-			$regexp = pathToRegexp($test[0], $params, $options);
+			$regexp = PathToRegexp::convert($test[0], $params, $options);
 
 			// Check the params are as expected.
 			$this->assertEquals($test[1], $params);
 
 			// Run the regexp and check the result is expected.
-			preg_match_all($regexp, $test[2], $matches);
-			if(count($matches) == 0) {
-				$matches = null;
-			} else {
-				$areValuesNull = true;
-				foreach($matches as $key => $match) {
-					if(!empty($match)) {
-						$matches[$key] = $match[0];
-						$areValuesNull = false;
-					} else {
-						$matches[$key] = null;
-					}
-				}
-				if($areValuesNull) {
-					$matches = null;
-				}
-			}
+			$matches = PathToRegexp::match($regexp, $test[2]);
 			$this->assertEquals($test[3], $matches);
 		}
 	}
