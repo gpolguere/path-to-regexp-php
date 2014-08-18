@@ -38,7 +38,7 @@ Named parameters are defined by prefixing a colon to the parameter name (`:foo`)
 $re = PathToRegexp::convert('/:foo/:bar', $keys);
 // $keys = array(array("name" => 'foo', ... ), array("name" => 'bar', ... ))
 
-PathToRegexp::match($re, '/test/route', $matches);
+$matches = PathToRegexp::match($re, '/test/route');
 // $matches = array('/test/route', 'test', 'route')
 ```
 
@@ -52,10 +52,10 @@ Parameters can be suffixed with a question mark (`?`) to make the entire paramet
 $re = PathToRegexp::convert('/:foo/:bar?', $keys);
 // $keys = array(array("name" => 'foo', ... ), array("name" => 'bar', "delimiter" => '/', "optional" => true, "repeat" => false ))
 
-PathToRegexp::match($re, '/test', $matches);
+$matches = PathToRegexp::match($re, '/test');
 // $matches = array('/test', 'test', null)
 
-PathToRegexp::match($re, '/test/route', $matches);
+$matches = PathToRegexp::match($re, '/test/route');
 // $matches = array('/test', 'test', 'route')
 ```
 
@@ -67,10 +67,10 @@ Parameters can be suffixed with an asterisk (`*`) to denote a zero or more param
 $re = PathToRegexp::convert('/:foo*', $keys);
 // $keys = array(array("name" => 'foo', "delimiter" => '/', "optional" => true, "repeat" => true))
 
-PathToRegexp::match($re, '/', $matches);
+$matches = PathToRegexp::match($re, '/');
 // $matches = array('/', null)
 
-PathToRegexp::match($re, '/bar/baz', $matches);
+$matches = PathToRegexp::match($re, '/bar/baz');
 // $matches = array('/bar/baz', 'bar/baz')
 ```
 
@@ -82,10 +82,10 @@ Parameters can be suffixed with a plus sign (`+`) to denote a one or more parame
 $re = PathToRegexp::convert('/:foo+', $keys);
 // $keys = array(array("name" => 'foo', "delimiter" => '/', "optional" => false, "repeat" => true))
 
-PathToRegexp::match($re, '/', $matches);
+$matches = PathToRegexp::match($re, '/');
 // $matches = null
 
-PathToRegexp::match($re, '/bar/baz', $matches);
+$matches = PathToRegexp::match($re, '/bar/baz');
 // $matches = array('/bar/baz', 'bar/baz')
 ```
 
@@ -97,10 +97,10 @@ All parameters can be provided a custom matching regexp and override the default
 $re = PathToRegexp::convert('/:foo(\\d+)', $keys);
 // $keys = array(array("name" => 'foo', ... ))
 
-PathToRegexp::match($re, '/123', $matches);
+$matches = PathToRegexp::match($re, '/123');
 // $matches = array('/123', '123')
 
-PathToRegexp::match($re, '/abc', $matches);
+$matches = PathToRegexp::match($re, '/abc');
 // $matches = null
 ```
 
@@ -112,7 +112,7 @@ It is possible to write an unnamed parameter that is only a matching group. It w
 $re = PathToRegexp::convert('/:foo/(.*)', $keys);
 // $keys = array(array("name" => 'foo', ... ), array("name": '0', ... ))
 
-PathToRegexp::match($re, '/test/route', $matches);
+$matches = PathToRegexp::match($re, '/test/route');
 // $matches = array('/test/route', 'test', 'route')
 ```
 
