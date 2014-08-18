@@ -1,0 +1,19 @@
+{
+	"name"       : "gpolguere/path-to-regexp-php",
+	"type"       : "project",
+	"homepage"   : "https://github.com/gpolguere/path-to-regexp-php",
+	"description": "PHP port of https://github.com/component/path-to-regexp",
+	"authors"    : [
+		{
+			"name": "Gil Polguère",
+			"email": "gpolguere@gmail.com"
+		}
+	],
+
+	"keywords": ["path", "regexp", "convert", "routing", "route", "match"],
+	"license" : "MIT",
+
+	"require": {
+		"php": ">=5.3.0"
+	}
+}
