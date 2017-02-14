@@ -2,7 +2,7 @@
 
 Turn an Express-style path string such as `/user/:name` into a regular expression.
 
-This is a PHP port of the JS library [component/path-to-regexp](https://github.com/component/path-to-regexp) **without the support of JS native regexp** (couldn't check the usage of the path).
+This is a PHP port of the JS library [~~component/path-to-regexp~~](https://github.com/component/path-to-regexp) [pillarjs/path-to-regexp](https://github.com/pillarjs/path-to-regexp) **without the support of JS native regexp** (couldn't check the usage of the path).
 
 ## Usage
 
@@ -115,19 +115,6 @@ $re = PathToRegexp::convert('/:foo/(.*)', $keys);
 $matches = PathToRegexp::match($re, '/test/route');
 // $matches = array('/test/route', 'test', 'route')
 ```
-
-## Compatibility with Express <= 4.x
-
-Path-To-RegExp breaks compatibility with Express 3.x in a few ways:
-
-* RegExp special characters can now be used in the regular path. E.g. `/user[(\\d+)]`
-* All RegExp special characters can now be used inside the custom match. E.g. `/:user(.*)`
-* No more support for asterisk matching - use an explicit parameter instead. E.g. `/(.*)`
-* Parameters can have suffixes that augment meaning - `*`, `+` and `?`. E.g. `/:user*`
-
-## Live Demo
-
-You can see a live demo of this library in use at [express-route-tester](http://forbeslindesay.github.com/express-route-tester/).
 
 ## License
 
