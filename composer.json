@@ -1,6 +1,6 @@
 {
 	"name"       : "gpolguere/path-to-regexp-php",
-	"type"       : "project",
+	"type"       : "library",
 	"homepage"   : "https://github.com/gpolguere/path-to-regexp-php",
 	"description": "PHP port of https://github.com/component/path-to-regexp",
 	"authors"    : [
